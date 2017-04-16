@@ -4,5 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ITextParser {
-	void parse(String text, List<SentenceNKE> sentences, Map<String, Integer> histogram);
+	void parse(String text, List<SentenceNKE> sentences);
+	void detectNegators(List<SentenceNKE> sentences);
+	void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy);
 }

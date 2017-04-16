@@ -18,7 +18,7 @@ public class AnnotatedWordEnglish extends AbstractAnnotatedWord {
 		this.dependsOn = Integer.parseInt(tokens[5]);
 		this.partOfSentence = tokens[6];
 		
-		this.negator = false;
+		this.negator = "";
 		this.negationTargetOfNode = 0;
 	}
 }

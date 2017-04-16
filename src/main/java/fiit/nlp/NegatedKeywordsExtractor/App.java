@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.annolab.tt4j.TreeTaggerException;
 import org.apache.tika.Tika;
@@ -40,8 +41,10 @@ import fiit.nlp.NegatedKeywordsExtractor.model.AbstractAnnotatedWord;
 import fiit.nlp.NegatedKeywordsExtractor.model.AbstractCorpusReader;
 import fiit.nlp.NegatedKeywordsExtractor.model.Document;
 import fiit.nlp.NegatedKeywordsExtractor.model.ExtractorCore;
-import fiit.nlp.NegatedKeywordsExtractor.model.FileSystemCorpusReader;
+import fiit.nlp.NegatedKeywordsExtractor.model.CorpusReaderFileSystem;
+import fiit.nlp.NegatedKeywordsExtractor.model.ParadigmEntry;
 import fiit.nlp.NegatedKeywordsExtractor.model.SentenceNKE;
+import fiit.nlp.NegatedKeywordsExtractor.model.WordDictionaryLoaderParadigms;
 import fiit.nlp.NegatedKeywordsExtractor.view.MainWindow;
 import is2.data.SentenceData09;
 import is2.parser.Parser;
@@ -54,6 +57,13 @@ import lib.SentenceParser;
  */
 public class App 
 {
+    static void dump(String[] arr) {
+        for (String s : arr) {
+            System.out.format("[%s]", s);
+        }
+        System.out.println();
+    }
+    
     public static void main( String[] args ) throws IOException, TikaException, TreeTaggerException
     {
 		EventQueue.invokeLater(new Runnable() {

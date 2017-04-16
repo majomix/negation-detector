@@ -71,6 +71,11 @@
         <artifactId>org.abego.treelayout.core</artifactId>
         <version>1.0.3</version>
     </dependency>
+    <dependency>
+		<groupId>jdom</groupId>
+		<artifactId>jdom</artifactId>
+		<version>1.1</version>
+    </dependency>
   </dependencies>
   <build>
   	<plugins>

@@ -12,31 +12,25 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 public class WordDictionaryLoaderParadigms {
 	private static class WordDictionaryLoader {
-		private static final Set<String> set;
+		private static final Set<ParadigmEntry> set;
 		static {
-			set = new HashSet<String>();
+			set = new HashSet<ParadigmEntry>();
 			File morpho = new File("F://Java//lib//ma-2015-02-05.txt");
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(morpho), "UTF-8"));
-				
+			
+			try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(morpho), "UTF-8"))) {
 				String str;
 
 				while ((str = reader.readLine()) != null) {
-				    set.add(str.split("\t")[0]);
-				    System.out.println(str);
+				    String[] parts = str.split("\t");
+				    set.add(new ParadigmEntry(parts[1], StringUtils.substring(parts[2], 0, 1)));
 				}
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -48,7 +42,7 @@ public class WordDictionaryLoaderParadigms {
 		}
 	}
 	
-	public static Set<String> getInstance() {
+	public static Set<ParadigmEntry> getInstance() {
 		return WordDictionaryLoader.set;
 	}
 }

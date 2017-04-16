@@ -13,8 +13,9 @@ public class ExtractorCore {
 	
 	public List<String> loadCorpus(String path)
 	{
-    	AbstractCorpusReader reader = new FileSystemCorpusReader(new File(path));
-    	documents = reader.createCorpus();
+    	//AbstractCorpusReader reader = new CorpusReaderFileSystem(new File(path));
+		AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
+		documents = reader.createCorpus();
     	
     	return reader.getUnparsable();
 	}
@@ -24,6 +25,7 @@ public class ExtractorCore {
     	String englishPath = "F://Java//Dataset//english";
     	String devSlovakPath = "F://Java//Dataset//slovak";
     	String devEnglishPath = "F://Java//Dataset//english2";
-    	unparsable = loadCorpus("F://Java//Dataset//test");
+    	//unparsable = loadCorpus("F://Java//Dataset//test");
+    	unparsable = loadCorpus("F://Java//Dataset//xml");
 	}
 }

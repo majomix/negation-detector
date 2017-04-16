@@ -1,6 +1,7 @@
 package fiit.nlp.NegatedKeywordsExtractor.model;
 
 import java.util.HashMap;
+
 import is2.data.SentenceData09;
 
 public class AnnotatedWordSlovak extends AbstractAnnotatedWord {
@@ -19,8 +20,8 @@ public class AnnotatedWordSlovak extends AbstractAnnotatedWord {
 		
 		this.dependsOn = sentence.pheads[id];
 		this.partOfSentence = sentence.plabels[id];
-		this.negator = false;
+		
+		this.negator = "";
 		this.negationTargetOfNode = 0;
 	}
-	
 }

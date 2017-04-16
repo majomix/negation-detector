@@ -14,7 +14,7 @@ import lib.SentenceParser;
 public class TextParserSlovak implements ITextParser {
 
 	@Override
-	public void parse(String text, List<SentenceNKE> sentences, Map<String, Integer> histogram) {
+	public void parse(String text, List<SentenceNKE> sentences) {
 		SentenceParser parser = ParserLoaderSynpar.getInstance();
 
 		Sentence sentence = new Sentence();
@@ -35,9 +35,6 @@ public class TextParserSlovak implements ITextParser {
 				        listOfWords.put(word.getDependsOn(), currentValue);
 				    }
 				    currentValue.add(word);
-					
-					Integer count = histogram.get(word.getLemma());
-					histogram.put(word.getLemma(), count == null ? 1 : count + 1);
 				}
 				
 				SentenceNKE createdSentence = new SentenceNKE(currentSentence.toString(), listOfWords);
@@ -46,5 +43,17 @@ public class TextParserSlovak implements ITextParser {
 		} catch (IOException | TreeTaggerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void detectNegators(List<SentenceNKE> sentences) {
+		// TODO Auto-generated method stub
+		
 	}
 }

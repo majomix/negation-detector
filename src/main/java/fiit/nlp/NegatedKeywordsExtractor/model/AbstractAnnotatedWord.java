@@ -12,8 +12,10 @@ public abstract class AbstractAnnotatedWord {
 	protected Map<String, String> partOfSpeechFeatures;
 	protected int dependsOn;
 	protected String partOfSentence;
-	protected boolean negator;
+	protected String negator;
+	protected String expectedNegator;
 	protected int negationTargetOfNode;
+	protected String expectedNegationTargetOfNode;
 	
 	public int getOrder() {
 		return order;

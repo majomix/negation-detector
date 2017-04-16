@@ -14,7 +14,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 public class TextParserEnglish implements ITextParser {
 
 	@Override
-	public void parse(String text, List<SentenceNKE> sentences, Map<String, Integer> histogram) {
+	public void parse(String text, List<SentenceNKE> sentences) {
 		// Annotation document = new Annotation("Hello world! I love this place. Peter denies gravity. Robert does not like beer.");
 		Annotation document = new Annotation(text);
 		StanfordCoreNLP parser = ParserLoaderStanford.getInstance();
@@ -46,13 +46,22 @@ public class TextParserEnglish implements ITextParser {
 				        listOfWords.put(word.getDependsOn(), currentValue);
 				    }
 				    currentValue.add(word);
-		  			
-					Integer count = histogram.get(word.getLemma());
-					histogram.put(word.getLemma(), count == null ? 1 : count + 1);
 	  			}
 	  		}
 	  	} catch (IOException e) {
 	  		e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void detectNegators(List<SentenceNKE> sentences) {
+		// TODO Auto-generated method stub
+		
 	}
 }
