@@ -28,7 +28,7 @@ public class WordDictionaryLoaderParadigms {
 
 				while ((str = reader.readLine()) != null) {
 				    String[] parts = str.split("\t");
-				    set.add(new ParadigmEntry(parts[1], StringUtils.substring(parts[2], 0, 1)));
+				    set.add(new ParadigmEntry(parts[0], StringUtils.substring(parts[2], 0, 1)));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

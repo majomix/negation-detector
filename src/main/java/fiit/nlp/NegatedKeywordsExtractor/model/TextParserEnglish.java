@@ -64,4 +64,10 @@ public class TextParserEnglish implements ITextParser {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void detectNegationScope(List<SentenceNKE> sentences) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -47,13 +47,42 @@ public class TextParserSlovak implements ITextParser {
 
 	@Override
 	public void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy) {
-		// TODO Auto-generated method stub
+		if(strategy == null) {
+			detectNegators(sentences);
+		}
 		
+		for(SentenceNKE sentence : sentences) {
+			for(AbstractAnnotatedWord wordEntry : sentence.getWords()) {
+				String word = wordEntry.getLemma().toLowerCase();
+				
+				if(word.equals("bez") || word.equals("okrem") || word.equals("mimo")) {
+					wordEntry.negator = "gen";
+				} else if(word.equals("nie")) {
+					wordEntry.negator = "nie";
+				} else {
+					wordEntry.negator = strategy.detect(wordEntry);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void detectNegators(List<SentenceNKE> sentences) {
-		// TODO Auto-generated method stub
+		detectNegators(sentences, new NegativePrefixSlovakParadigmsStrategy());
+	}
+
+	@Override
+	public void detectNegationScope(List<SentenceNKE> sentences) {
+		Map<String, IScopeStrategy> strategyMap = new HashMap<String, IScopeStrategy>();
+		strategyMap.put("pre", new ScopeStrategySlovakPred());
 		
+		for(SentenceNKE sentence : sentences) {
+			for(AbstractAnnotatedWord word : sentence.getWords()) {
+				IScopeStrategy strategy = strategyMap.get(word.negator);
+				if(strategy != null) {
+					strategy.detect(sentence, word);
+				}
+			}
+		}
 	}
 }

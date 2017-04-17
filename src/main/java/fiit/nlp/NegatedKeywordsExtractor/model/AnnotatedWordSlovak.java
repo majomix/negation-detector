@@ -22,6 +22,8 @@ public class AnnotatedWordSlovak extends AbstractAnnotatedWord {
 		this.partOfSentence = sentence.plabels[id];
 		
 		this.negator = "";
+		this.expectedNegator = "";
 		this.negationTargetOfNode = 0;
+		this.expectedNegationTargetOfNode = "";
 	}
 }

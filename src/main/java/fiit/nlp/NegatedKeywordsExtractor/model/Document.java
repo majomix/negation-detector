@@ -19,11 +19,14 @@ public class Document {
 		
 		this.setLanguage(language);
 		this.setRawText(rawText);
+		strategy = null;
 	}
 	
 	public Document(String rawText, List<SentenceNKE> sentences, String language) {
 		this(rawText, language);
 		this.sentences = sentences;
+		parser.detectNegators(sentences);
+		parser.detectNegationScope(sentences);
 	}
 	
 	public Document(String rawText, String language, String filename) {
@@ -60,7 +63,8 @@ public class Document {
 		if(parser != null && rawText != null) {
 			sentences = new ArrayList<SentenceNKE>();
 			parser.parse(rawText, sentences);
-			
+			parser.detectNegators(sentences, strategy);
+			parser.detectNegationScope(sentences);
 		}
 	}
 }

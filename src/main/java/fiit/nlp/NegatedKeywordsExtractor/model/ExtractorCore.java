@@ -16,6 +16,24 @@ public class ExtractorCore {
     	//AbstractCorpusReader reader = new CorpusReaderFileSystem(new File(path));
 		AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
 		documents = reader.createCorpus();
+		
+		int totalWords = 0;
+		int matchedNegators = 0;
+		int notMatchedNegators = 0;
+		
+		for(Document document : documents) {
+			for(SentenceNKE sentence : document.getSentences()) {
+				for(AbstractAnnotatedWord word : sentence.getWords()) {
+					totalWords++;
+					if(word.negator.equals(word.expectedNegator)) {
+						matchedNegators++;
+					} else {
+						notMatchedNegators++;
+						System.out.println(word.word + ", určený typ: " + word.negator + ", očakávaný typ: " + word.expectedNegator);
+					}
+				}
+			}
+		}
     	
     	return reader.getUnparsable();
 	}

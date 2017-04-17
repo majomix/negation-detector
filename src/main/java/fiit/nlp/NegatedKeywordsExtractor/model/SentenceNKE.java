@@ -45,7 +45,14 @@ public class SentenceNKE {
 		} else {
 			return null;
 		}
-		
+	}
+	
+	public List<AbstractAnnotatedWord> getWords() {
+		return sortedWords;
+	}
+	
+	public DefaultTreeForTreeLayout<AbstractAnnotatedWord> getTree() {
+		return tree;
 	}
 	
 	public String toString() {
