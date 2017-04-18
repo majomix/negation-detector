@@ -1,8 +1,9 @@
 package fiit.nlp.NegatedKeywordsExtractor.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import is2.data.SentenceData09;
 
 public abstract class AbstractAnnotatedWord {
 	protected int order;
@@ -14,26 +15,31 @@ public abstract class AbstractAnnotatedWord {
 	protected String partOfSentence;
 	protected String negator;
 	protected String expectedNegator;
-	protected int negationTargetOfNode;
-	protected String expectedNegationTargetOfNode;
+	protected List<Integer> negationTargetOfNode;
+	protected List<Integer> expectedNegationTargetOfNode;
 	
-	public int getOrder() {
-		return order;
+	protected AbstractAnnotatedWord() {
+		partOfSpeechFeatures = new HashMap<String, String>();
+		negationTargetOfNode = new ArrayList<Integer>();
+		expectedNegationTargetOfNode = new ArrayList<Integer>();
+		
+		negator = "";
+		expectedNegator = "";
 	}
-	
-	public String getLemma() {
-		return lemma;
-	}
-	
-	public String getWord() {
-		return word;
-	}
-	
-	public int getDependsOn() {
-		return dependsOn;
-	}
-	
+
 	public String toString() {
 		return lemma;
+	}
+	
+	protected String getPartOfSpeechTag() {
+		return partOfSpeechTag.substring(0, 1);
+	}
+	
+	protected boolean hasPartOfSpeech(String partOfSpeech) {
+		return partOfSpeechTag.substring(0, 1).equals(partOfSpeech);
+	}
+	
+	protected boolean hasPartOfSpeech(String partOfSpeech, String partOfSpeechTagCase) {
+		return hasPartOfSpeech(partOfSpeech) && partOfSpeechTag.substring(3, 4).equals(partOfSpeechTagCase);
 	}
 }

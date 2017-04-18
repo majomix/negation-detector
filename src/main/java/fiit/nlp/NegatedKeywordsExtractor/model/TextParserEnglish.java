@@ -40,10 +40,10 @@ public class TextParserEnglish implements ITextParser {
 		  			AbstractAnnotatedWord word = new AnnotatedWordEnglish(token);
 		  			builder.append(token + "\n");
 
-				    List<AbstractAnnotatedWord> currentValue = listOfWords.get(word.getDependsOn());
+				    List<AbstractAnnotatedWord> currentValue = listOfWords.get(word.dependsOn);
 				    if (currentValue == null) {
 				        currentValue = new ArrayList<AbstractAnnotatedWord>();
-				        listOfWords.put(word.getDependsOn(), currentValue);
+				        listOfWords.put(word.dependsOn, currentValue);
 				    }
 				    currentValue.add(word);
 	  			}

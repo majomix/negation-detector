@@ -32,7 +32,7 @@ public class SentenceNKE {
 		Collections.sort(sortedWords, new Comparator<AbstractAnnotatedWord>() {
 			@Override
 			public int compare(AbstractAnnotatedWord o1, AbstractAnnotatedWord o2) {
-				return o1.getOrder() - o2.getOrder();
+				return o1.order - o2.order;
 			}
 		});
 		IDependencyTreeLayoutBuilder builder = new DependencyTreeLayoutBuilderNaive();

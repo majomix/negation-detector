@@ -24,11 +24,11 @@ public class DependencyTreeLayoutBuilderNaive implements IDependencyTreeLayoutBu
 	}
 	
 	private void buildRecursively(AbstractAnnotatedWord node, Map<Integer, List<AbstractAnnotatedWord>> words, DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree) {
-		List<AbstractAnnotatedWord> nodes = words.get(node.getOrder());
+		List<AbstractAnnotatedWord> nodes = words.get(node.order);
 		
 		String outWord = node.word.equals(",") ? "/" : node.word;
 		
-		System.out.print("[" + outWord + ", name=node" + node.getOrder());
+		System.out.print("[" + outWord + ", name=node" + node.order);
 		
 		if(nodes != null && !nodes.isEmpty()) {
 			System.out.println("");

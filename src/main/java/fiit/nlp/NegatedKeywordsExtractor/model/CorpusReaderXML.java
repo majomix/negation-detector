@@ -60,7 +60,9 @@ public class CorpusReaderXML extends AbstractCorpusReader {
 								if(attr.getName().equals("negator")) {
 									parsedWord.expectedNegator = attr.getValue();
 								} else if(attr.getName().equals("scope")) {
-									parsedWord.expectedNegationTargetOfNode = attr.getValue();
+									for(String id : attr.getValue().split(",")) {
+										parsedWord.expectedNegationTargetOfNode.add(Integer.parseInt(id.replaceAll("\\D+","")));
+									}
 								}
 							}
 						} else {

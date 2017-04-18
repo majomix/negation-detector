@@ -3,17 +3,21 @@ package fiit.nlp.NegatedKeywordsExtractor.model;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
 
 public class ScopeStrategySlovakPred implements IScopeStrategy {
+	private AbstractAnnotatedWord originalWord;
+	
 	@Override
-	public void detect(SentenceNKE sentence, AbstractAnnotatedWord word) {
-		DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree = sentence.getTree();
-		tag(tree, word);
+	public void detectScope(SentenceNKE sentence, AbstractAnnotatedWord negator) {
+		originalWord = negator;
+		tagScope(sentence.getTree(), negator);
 	}
 	
-	private void tag(DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree, AbstractAnnotatedWord word) {
+	private void tagScope(DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree, AbstractAnnotatedWord word) {
 		for(AbstractAnnotatedWord node : tree.getChildren(word)) {
-			tag(tree, node);
+			tagScope(tree, node);
 		}
 		
-		word.negationTargetOfNode = 5;
+		if(word != originalWord) {
+			word.negationTargetOfNode.add(word.order);
+		}
 	}
 }

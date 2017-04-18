@@ -29,10 +29,10 @@ public class TextParserSlovak implements ITextParser {
 				for(int i = 0; i < currentSentence.id.length; i++) {
 					AbstractAnnotatedWord word = new AnnotatedWordSlovak(currentSentence, i);
 					
-				    List<AbstractAnnotatedWord> currentValue = listOfWords.get(word.getDependsOn());
+				    List<AbstractAnnotatedWord> currentValue = listOfWords.get(word.dependsOn);
 				    if (currentValue == null) {
 				        currentValue = new ArrayList<AbstractAnnotatedWord>();
-				        listOfWords.put(word.getDependsOn(), currentValue);
+				        listOfWords.put(word.dependsOn, currentValue);
 				    }
 				    currentValue.add(word);
 				}
@@ -53,7 +53,7 @@ public class TextParserSlovak implements ITextParser {
 		
 		for(SentenceNKE sentence : sentences) {
 			for(AbstractAnnotatedWord wordEntry : sentence.getWords()) {
-				String word = wordEntry.getLemma().toLowerCase();
+				String word = wordEntry.lemma.toLowerCase();
 				
 				if(word.equals("bez") || word.equals("okrem") || word.equals("mimo")) {
 					wordEntry.negator = "gen";
@@ -74,13 +74,16 @@ public class TextParserSlovak implements ITextParser {
 	@Override
 	public void detectNegationScope(List<SentenceNKE> sentences) {
 		Map<String, IScopeStrategy> strategyMap = new HashMap<String, IScopeStrategy>();
+		strategyMap.put("gen", new ScopeStrategySlovakGen());
 		strategyMap.put("pre", new ScopeStrategySlovakPred());
+		strategyMap.put("atr", new ScopeStrategySlovakAttr());
+		strategyMap.put("nie", new ScopeStrategySlovakNot());
 		
 		for(SentenceNKE sentence : sentences) {
 			for(AbstractAnnotatedWord word : sentence.getWords()) {
 				IScopeStrategy strategy = strategyMap.get(word.negator);
 				if(strategy != null) {
-					strategy.detect(sentence, word);
+					strategy.detectScope(sentence, word);
 				}
 			}
 		}

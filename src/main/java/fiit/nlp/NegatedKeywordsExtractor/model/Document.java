@@ -45,6 +45,10 @@ public class Document {
 		return histogram;
 	}
 	
+	public String getFilename() {
+		return filename;
+	}
+	
 	public void setRawText(String rawText) {
 		this.rawText = rawText;
 	}
