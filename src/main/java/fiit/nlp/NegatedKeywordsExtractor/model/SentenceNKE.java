@@ -15,15 +15,22 @@ public class SentenceNKE {
 	private List<AbstractAnnotatedWord> sortedWords;
 	private String conllText;
 	private DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree;
+	private String originalSentence;
 	
 	public SentenceNKE(String conll, Map<Integer, List<AbstractAnnotatedWord>> words) {
 		this.conllText = conll;
 		this.setWords(words);
 	}
 	
+	public SentenceNKE(String conll, Map<Integer, List<AbstractAnnotatedWord>> words, String originalSentence) {
+		this(conll, words);
+		this.originalSentence = originalSentence;
+	}
+	
 	public void setWords(Map<Integer, List<AbstractAnnotatedWord>> words) {
 		this.words = words;
 		sortedWords = new ArrayList<AbstractAnnotatedWord>();
+		
 		for(List<AbstractAnnotatedWord> list : words.values()) {
 			for(AbstractAnnotatedWord word : list) {
 				sortedWords.add(word);
@@ -53,6 +60,10 @@ public class SentenceNKE {
 	
 	public DefaultTreeForTreeLayout<AbstractAnnotatedWord> getTree() {
 		return tree;
+	}
+	
+	public String getText() {
+		return originalSentence;
 	}
 	
 	public String toString() {

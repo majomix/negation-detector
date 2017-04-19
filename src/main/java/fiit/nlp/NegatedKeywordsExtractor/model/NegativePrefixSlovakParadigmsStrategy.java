@@ -1,5 +1,6 @@
 package fiit.nlp.NegatedKeywordsExtractor.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class NegativePrefixSlovakParadigmsStrategy implements INegativePrefixStrategy {
@@ -22,18 +23,28 @@ public class NegativePrefixSlovakParadigmsStrategy implements INegativePrefixStr
 		if(lemma.endsWith("á") || lemma.endsWith("é")) {
 			lemma = lemma.substring(0, lemma.length() - 1) + "ý";
 		}
+
+		ArrayList<ParadigmEntry> entries = new ArrayList<ParadigmEntry>();
+		entries.add(new ParadigmEntry(result[1], wordEntry.partOfSpeechTag));
 		
-		ParadigmEntry checkedEntry = new ParadigmEntry(result[1], wordEntry.partOfSpeechTag);
-		if(set.contains(checkedEntry)) {
-			switch(wordEntry.partOfSpeechTag) {
-			case "G":
-			case "A":
-				return "atr";
-			case "V":
-				return "pre";
-			}
+		if(lemma.endsWith("ý")) {
+			entries.add(new ParadigmEntry(result[1], "A"));
+			entries.add(new ParadigmEntry(result[1], "G"));
+			wordEntry.partOfSpeechFeatures.put("case", "1");
 		}
 		
+		for(ParadigmEntry checkedEntry : entries) {
+			if(set.contains(checkedEntry)) {
+				switch(checkedEntry.pos) {
+				case "G":
+				case "A":
+					return "atr";
+				case "V":
+					return "pre";
+				}
+			}
+		}
+
 		return "";
 	}
 }

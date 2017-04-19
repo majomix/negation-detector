@@ -17,7 +17,7 @@ public class ScopeStrategySlovakPred implements IScopeStrategy {
 		}
 		
 		if(word != originalWord) {
-			word.negationTargetOfNode.add(word.order);
+			word.negationTargetOfNode.add(originalWord.order);
 		}
 	}
 }

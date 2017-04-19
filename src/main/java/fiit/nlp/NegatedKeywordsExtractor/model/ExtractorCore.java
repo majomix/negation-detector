@@ -13,9 +13,12 @@ public class ExtractorCore {
 	
 	public List<String> loadCorpus(String path)
 	{
-    	//AbstractCorpusReader reader = new CorpusReaderFileSystem(new File(path));
-		AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
+		AbstractCorpusReader reader = new CorpusReaderFileSystem(new File(path));
+		//AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
 		documents = reader.createCorpus();
+		
+		CorpusWriterXML writer = new CorpusWriterXML(new File("F://Java//Dataset//new"));
+		writer.saveCorpus(documents);
 		
 		int totalWords = 0;
 		int matchedNegators = 0;
@@ -43,7 +46,8 @@ public class ExtractorCore {
     	String englishPath = "F://Java//Dataset//english";
     	String devSlovakPath = "F://Java//Dataset//slovak";
     	String devEnglishPath = "F://Java//Dataset//english2";
-    	//unparsable = loadCorpus("F://Java//Dataset//test");
-    	unparsable = loadCorpus("F://Java//Dataset//xml");
+    	String testPath = "F://Java//Dataset//test";
+    	unparsable = loadCorpus(devSlovakPath);
+    	//unparsable = loadCorpus("F://Java//Dataset//xml");
 	}
 }

@@ -21,7 +21,10 @@ public class ScopeStrategySlovakGen implements IScopeStrategy {
 			}
 		});
 		
-		int minDepth = listOfPairs.get(0).x;
+		int minDepth = 0;
+		if(listOfPairs.size() > 0) {
+			minDepth = listOfPairs.get(0).x;
+		}
 		
 		for(Tuple<Integer, AbstractAnnotatedWord> tuple : listOfPairs) {
 			if(tuple.x == minDepth) {

@@ -37,7 +37,7 @@ public class TextParserSlovak implements ITextParser {
 				    currentValue.add(word);
 				}
 				
-				SentenceNKE createdSentence = new SentenceNKE(currentSentence.toString(), listOfWords);
+				SentenceNKE createdSentence = new SentenceNKE(currentSentence.toString(), listOfWords, String.join(" ", currentSentence.forms));
 				sentences.add(createdSentence);
 			}
 		} catch (IOException | TreeTaggerException e) {
@@ -49,13 +49,14 @@ public class TextParserSlovak implements ITextParser {
 	public void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy) {
 		if(strategy == null) {
 			detectNegators(sentences);
+			return;
 		}
 		
 		for(SentenceNKE sentence : sentences) {
 			for(AbstractAnnotatedWord wordEntry : sentence.getWords()) {
 				String word = wordEntry.lemma.toLowerCase();
 				
-				if(word.equals("bez") || word.equals("okrem") || word.equals("mimo")) {
+				if(word.equals("bez") || word.equals("okrem") || word.equals("mimo") || word.equals("namiesto")) {
 					wordEntry.negator = "gen";
 				} else if(word.equals("nie")) {
 					wordEntry.negator = "nie";

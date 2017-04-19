@@ -32,14 +32,27 @@ public abstract class AbstractAnnotatedWord {
 	}
 	
 	protected String getPartOfSpeechTag() {
-		return partOfSpeechTag.substring(0, 1);
+		return partOfSpeechFeatures.get("pos");
+	}
+	
+	protected String getPartOfSpeechCase() {
+		return partOfSpeechFeatures.get("case");
+	}
+	
+	protected String getPartOfSpeechGender() {
+		return partOfSpeechFeatures.get("gen");
 	}
 	
 	protected boolean hasPartOfSpeech(String partOfSpeech) {
-		return partOfSpeechTag.substring(0, 1).equals(partOfSpeech);
+		if(getPartOfSpeechTag() != null) {
+			return getPartOfSpeechTag().equals(partOfSpeech);
+		} else return false;
+		
 	}
 	
 	protected boolean hasPartOfSpeech(String partOfSpeech, String partOfSpeechTagCase) {
-		return hasPartOfSpeech(partOfSpeech) && partOfSpeechTag.substring(3, 4).equals(partOfSpeechTagCase);
+		if(getPartOfSpeechTag() != null && getPartOfSpeechCase() != null) {
+			return hasPartOfSpeech(partOfSpeech) && getPartOfSpeechCase().equals(partOfSpeechTagCase);
+		} else return false;
 	}
 }
