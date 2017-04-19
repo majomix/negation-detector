@@ -11,6 +11,7 @@ public abstract class AbstractAnnotatedWord {
 	protected String lemma;
 	protected String partOfSpeechTag;
 	protected Map<String, String> partOfSpeechFeatures;
+	protected String partOfSpeechFeaturesLine;
 	protected int dependsOn;
 	protected String partOfSentence;
 	protected String negator;

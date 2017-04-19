@@ -13,22 +13,24 @@ public class ScopeStrategySlovakAttr implements IScopeStrategy {
 		
 		// direct ancestor
 		parent = tree.getParent(node);
-		if(parent.hasPartOfSpeech("S", negator.getPartOfSpeechCase())) {
-			parent.negationTargetOfNode.add(negator.order);
-			found = true;
-		}
-			
-		// subject
-		if(!found) {
-			while((parent = tree.getParent(node)) != null && !found) {
-				node = parent;
+		if(parent != null) {
+			if(parent.hasPartOfSpeech("S", negator.getPartOfSpeechCase())) {
+				parent.negationTargetOfNode.add(negator.order);
+				found = true;
+			}
+				
+			// subject
+			if(!found) {
+				while((parent = tree.getParent(node)) != null && !found) {
+					node = parent;
 
-				for(AbstractAnnotatedWord word : tree.getChildren(node)) {
-					if(word.partOfSentence.equals("Sb") && word.hasPartOfSpeech("S", negator.getPartOfSpeechCase())) {
-						word.negationTargetOfNode.add(negator.order);
-						negator.negator = "sub";
-						found = true;
-						break;
+					for(AbstractAnnotatedWord word : tree.getChildren(node)) {
+						if(word.partOfSentence.equals("Sb") && word.hasPartOfSpeech("S", negator.getPartOfSpeechCase())) {
+							word.negationTargetOfNode.add(negator.order);
+							negator.negator = "sub";
+							found = true;
+							break;
+						}
 					}
 				}
 			}

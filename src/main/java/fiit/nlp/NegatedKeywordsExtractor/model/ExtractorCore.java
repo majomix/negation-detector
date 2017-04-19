@@ -1,8 +1,11 @@
 package fiit.nlp.NegatedKeywordsExtractor.model;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import lib.SentenceParser;
 
@@ -17,7 +20,7 @@ public class ExtractorCore {
 		//AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
 		documents = reader.createCorpus();
 		
-		CorpusWriterXML writer = new CorpusWriterXML(new File("F://Java//Dataset//new"));
+		CorpusWriterXML writer = new CorpusWriterXML(new File("F://Java//Dataset//sport_xml"));
 		writer.saveCorpus(documents);
 		
 		int totalWords = 0;
@@ -47,7 +50,13 @@ public class ExtractorCore {
     	String devSlovakPath = "F://Java//Dataset//slovak";
     	String devEnglishPath = "F://Java//Dataset//english2";
     	String testPath = "F://Java//Dataset//test";
-    	unparsable = loadCorpus(devSlovakPath);
-    	//unparsable = loadCorpus("F://Java//Dataset//xml");
+    	String maPath = "F://Java//Dataset//ma";
+    	String sportPath = "F://Java//Dataset//clanky//sport";
+    	unparsable = loadCorpus(sportPath);
+    	
+//    	EvaluatorNegativePrefixSlovakParadigsm a = new EvaluatorNegativePrefixSlovakParadigsm();
+//    	a.PrepareManualTest();
+
+    	//unparsable = loadCor pus("F://Java//Dataset//xml");
 	}
 }

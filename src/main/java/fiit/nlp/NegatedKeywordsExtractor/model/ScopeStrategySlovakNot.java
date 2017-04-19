@@ -7,7 +7,7 @@ public class ScopeStrategySlovakNot implements IScopeStrategy {
 		
 		// "nie je" - predicative negation
 		AbstractAnnotatedWord followingWord = sentence.getWord(negator.order);
-		if(followingWord.word.toLowerCase().equals("je")) {
+		if(followingWord.lemma.toLowerCase().contains("byť")) {
 			followingWord.negationTargetOfNode.add(negator.order);
 			followingWord.negator = "pre";
 		}

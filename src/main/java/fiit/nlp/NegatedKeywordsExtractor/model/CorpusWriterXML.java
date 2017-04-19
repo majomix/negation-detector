@@ -56,6 +56,11 @@ public class CorpusWriterXML {
 			Element sentenceXML = new Element("sentence");
 			
 			sentenceXML.setAttribute("text", sentence.getText());
+			
+//			Element conllXML = new Element("conll");
+//			conllXML.setText(sentence.toString());
+//			sentenceXML.addContent(conllXML);
+			
 			for(AbstractAnnotatedWord word : sentence.getWords()) {
 				Element wordXML = new Element("word");
 				wordXML.setAttribute("id", "w" + word.order);
@@ -68,6 +73,9 @@ public class CorpusWriterXML {
 				if(!("".equals(scopes))) {
 					wordXML.setAttribute("scope", scopes);
 				}
+				
+				wordXML.setAttribute("lemma", word.lemma.split("\\|")[0]);
+				wordXML.setAttribute("pos", word.partOfSpeechFeaturesLine);
 				
 				wordXML.setText(word.word);
 				
