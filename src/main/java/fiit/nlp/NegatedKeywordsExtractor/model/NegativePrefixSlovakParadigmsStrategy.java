@@ -50,7 +50,7 @@ public class NegativePrefixSlovakParadigmsStrategy implements INegativePrefixStr
 						case "V":
 							return "pre";
 						case "S":
-							return "sub";
+							return "sbs";
 						case "D":
 							return "adv";
 						case "N":

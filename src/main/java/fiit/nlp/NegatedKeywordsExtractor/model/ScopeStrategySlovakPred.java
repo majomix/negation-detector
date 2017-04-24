@@ -15,11 +15,13 @@ public class ScopeStrategySlovakPred implements IScopeStrategy {
 			previousWord = sentence.getWord(negator.order - 2);
 		}
 		
-		tagScope(sentence.getTree(), negator);
-		
-		// if part of sentence is AuxV, it is a descendant of another word so tag parent's subtree
+		// if part of sentence is AuxV, the negator's parent is tagged as predicate so tag parent's subtree
 		if("AuxV".equals(negator.partOfSentence)) {
 			tagScope(sentence.getTree(), sentence.getTree().getParent(negator));
+		}
+		// otherwise tag negator's subtree
+		else {
+			tagScope(sentence.getTree(), negator);
 		}
 	}
 	
@@ -29,7 +31,7 @@ public class ScopeStrategySlovakPred implements IScopeStrategy {
 		}
 		
 		// dont tag negator itself nor "nie"
-		if(word != originalWord && !(word == previousWord && word.lemma.toLowerCase().equals("nie"))) {
+		if(word != null && word != originalWord && !(word == previousWord && word.lemma.toLowerCase().equals("nie"))) {
 			word.negationTargetOfNode.add(originalWord.order);
 		}
 	}

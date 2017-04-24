@@ -24,14 +24,16 @@ public class AnnotatedWordSlovak extends AbstractAnnotatedWord {
 		for (String feature : sentence.pfeats[id].split("\\|")) {
 			String[] parts = feature.split("=");
 			partOfSpeechFeatures.put(parts[0], parts[1]);
-			if(!("pred_candidate".equals(parts[0]))) {
-				stringBuilder.append(parts[1]);
-			}
+			
 			if("neg".equals(parts[0])) {
 				if("a".equals(parts[1])) {
 					stringBuilder.append("+");
 				} else {
 					stringBuilder.append("-");
+				}
+			} else {
+				if(!("pred_candidate".equals(parts[0])) && !("namedentity".equals(parts[0]))) {
+					stringBuilder.append(parts[1]);
 				}
 			}
 		}

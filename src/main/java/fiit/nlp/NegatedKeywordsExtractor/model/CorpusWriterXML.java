@@ -38,9 +38,12 @@ public class CorpusWriterXML {
 	}
 	
 	public String createFinalName(Document document, int i) {
-		String filename = new File(document.getFilename()).getName();
-		if(filename == null) {
+		
+		String filename;
+		if(document.getFilename() == null) {
 			filename = "document" + (i + 1);
+		} else {
+			filename = new File(document.getFilename()).getName();
 		}
 		filename += ".xml";
 		

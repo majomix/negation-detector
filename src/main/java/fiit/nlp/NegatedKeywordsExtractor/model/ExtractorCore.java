@@ -20,7 +20,7 @@ public class ExtractorCore {
 		//AbstractCorpusReader reader = new CorpusReaderXML(new File(path));
 		documents = reader.createCorpus();
 		
-		CorpusWriterXML writer = new CorpusWriterXML(new File("F://Java//Dataset//sport_xml"));
+		CorpusWriterXML writer = new CorpusWriterXML(new File("F://Java//Dataset//xml//beletria"));
 		writer.saveCorpus(documents);
 		
 		int totalWords = 0;
@@ -52,7 +52,8 @@ public class ExtractorCore {
     	String testPath = "F://Java//Dataset//test";
     	String maPath = "F://Java//Dataset//ma";
     	String sportPath = "F://Java//Dataset//clanky//sport";
-    	unparsable = loadCorpus(sportPath);
+    	String gaborikPath = "F://Java//Dataset//xml";
+    	unparsable = loadCorpus("F://Java//Dataset//clanky//beletria");
     	
 //    	EvaluatorNegativePrefixSlovakParadigsm a = new EvaluatorNegativePrefixSlovakParadigsm();
 //    	a.PrepareManualTest();
