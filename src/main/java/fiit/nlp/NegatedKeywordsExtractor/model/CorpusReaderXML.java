@@ -27,9 +27,10 @@ public class CorpusReaderXML extends AbstractCorpusReader {
 		
 		SAXBuilder builder = new SAXBuilder();
 		ITextParser parser = new TextParserSlovak();
-		List<SentenceNKE> sentences = new ArrayList<SentenceNKE>();
+		List<SentenceNKE> sentences;
 		
 		for(String filename : fileList) {
+			sentences = new ArrayList<SentenceNKE>();
 			org.jdom.Document documentXML;
 			try {
 				documentXML = (org.jdom.Document) builder.build(new File(filename));
@@ -66,7 +67,7 @@ public class CorpusReaderXML extends AbstractCorpusReader {
 								}
 							}
 						} else {
-							System.out.println("Word '" + value + "' mismatch in sentence #" + i + " '" + sentenceText +  "'.");
+//							System.out.println("Word '" + value + "' mismatch in sentence #" + i + " '" + sentenceText +  "'.");
 						}
 					}
 					

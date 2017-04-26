@@ -27,7 +27,19 @@ public class ScopeStrategySlovakPred implements IScopeStrategy {
 	
 	private void tagScope(DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree, AbstractAnnotatedWord word) {
 		for(AbstractAnnotatedWord node : tree.getChildren(word)) {
-			tagScope(tree, node);
+			// dont tag specific conjunctions's subtrees
+			boolean tag = true;
+			String[] ignoreConjunctions = new String[] { "ale", "takže", "pretože", "keďže", "keď", "aby", "pokiaľ", "nakoľko" };
+			for(String conjunction : ignoreConjunctions) {
+				if(word.word.equalsIgnoreCase(conjunction)) {
+					tag = false;
+					break;
+				}
+			}
+			
+			if(tag) {
+				tagScope(tree, node);
+			}
 		}
 		
 		// dont tag negator itself nor "nie"
