@@ -37,19 +37,19 @@ import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcess
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
-import fiit.nlp.NegatedKeywordsExtractor.model.AbstractAnnotatedWord;
-import fiit.nlp.NegatedKeywordsExtractor.model.AbstractCorpusReader;
-import fiit.nlp.NegatedKeywordsExtractor.model.Document;
-import fiit.nlp.NegatedKeywordsExtractor.model.ExtractorCore;
-import fiit.nlp.NegatedKeywordsExtractor.model.CorpusReaderFileSystem;
-import fiit.nlp.NegatedKeywordsExtractor.model.ParadigmEntry;
-import fiit.nlp.NegatedKeywordsExtractor.model.SentenceNKE;
-import fiit.nlp.NegatedKeywordsExtractor.model.WordDictionaryLoaderParadigms;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractCorpusReader;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.CorpusReaderFileSystem;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.Document;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.ExtractorCore;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.ParadigmEntry;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.WordDictionaryLoaderParadigms;
 import fiit.nlp.NegatedKeywordsExtractor.view.MainWindow;
+import fiit.nlp.Synpar.Sentence;
+import fiit.nlp.Synpar.SentenceParser;
 import is2.data.SentenceData09;
 import is2.parser.Parser;
-import lib.Sentence;
-import lib.SentenceParser;
 
 /**
  * Hello world!

@@ -19,10 +19,12 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
+
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements IMainWindow {
 
 	private JFrame frmNegatedKeywordsExtractor;
 	private JMenuBar menuBar;
@@ -143,6 +145,11 @@ public class MainWindow extends JFrame {
 		
 		panel = new JPanel();
 		sentencesPanel.add(panel, BorderLayout.SOUTH);
+	}
+
+	@Override
+	public void setLoadCorpusAction(Action loadCorpusAction) {
+		mntmLoadCorpus.setAction(loadCorpusAction);
 	}
 
 }

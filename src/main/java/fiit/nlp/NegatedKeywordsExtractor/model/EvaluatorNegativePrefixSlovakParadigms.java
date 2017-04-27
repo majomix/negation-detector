@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AnnotatedWordSlovak;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.NegativePrefixSlovakParadigmsStrategy;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.ParadigmEntry;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.WordDictionaryLoaderParadigms;
+
 public class EvaluatorNegativePrefixSlovakParadigms {
 	public void PrepareManualTest() {
     	Set<ParadigmEntry> set = WordDictionaryLoaderParadigms.getInstance();

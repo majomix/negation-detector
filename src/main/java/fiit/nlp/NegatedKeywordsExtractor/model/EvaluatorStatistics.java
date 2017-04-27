@@ -2,6 +2,10 @@ package fiit.nlp.NegatedKeywordsExtractor.model;
 
 import java.util.List;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.Document;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+
 public class EvaluatorStatistics {
 
 	public void evaluate(List<Document> documents) {

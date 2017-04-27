@@ -3,6 +3,10 @@ package fiit.nlp.NegatedKeywordsExtractor.model;
 import java.util.HashMap;
 import java.util.List;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.Document;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+
 public class EvaluatorCorpusNegationStatistics {
 	public void evaluate(String name, List<Document> documents) {
 		HashMap<String, Integer> numbers = new HashMap<String, Integer>();

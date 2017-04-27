@@ -3,6 +3,11 @@ package fiit.nlp.NegatedKeywordsExtractor.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.Document;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.NegativePrefixSlovakParadigmsStrategy;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+
 public class EvaluatorCorpusNegators {
 
 	public void evaluate(String name, List<Document> documents) {

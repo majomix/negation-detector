@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.Document;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+
 public class EvaluatorCorpusNegationScope {
 	private List<HashMap<String, ScoreCalculator>> allScores = new ArrayList<HashMap<String, ScoreCalculator>>();	
 	

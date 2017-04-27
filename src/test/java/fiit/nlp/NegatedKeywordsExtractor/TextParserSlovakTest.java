@@ -1,16 +1,17 @@
 package fiit.nlp.NegatedKeywordsExtractor;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import fiit.nlp.NegatedKeywordsExtractor.model.SentenceNKE;
-import fiit.nlp.NegatedKeywordsExtractor.model.TextParserSlovak;
-import junit.framework.TestCase;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.SentenceNKE;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.TextParserSlovak;
 
-public class TextParserSlovakTest extends TestCase {
+public class TextParserSlovakTest {
 
 	private TextParserSlovak parser;
 	
