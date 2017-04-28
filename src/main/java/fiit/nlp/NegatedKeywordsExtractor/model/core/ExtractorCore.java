@@ -111,9 +111,18 @@ public class ExtractorCore {
 				);
 		System.out.println(calculator);
 		
+		//String a = getUserDataDirectory();
+		
+		AbstractCorpusReader reader = new CorpusReaderBioScope(new File("F://Java//Dataset//BioScope//bioscope//xml"));
+		reader.createCorpus();
+		
 //    	EvaluatorNegativePrefixSlovakParadigsm a = new EvaluatorNegativePrefixSlovakParadigsm();
 //    	a.PrepareManualTest();
 
     	//unparsable = loadCor pus("F://Java//Dataset//xml");
+	}
+	
+	public static String getUserDataDirectory() {
+	    return System.getProperty("user.home") + File.separator + ".jstock" + File.separator;
 	}
 }
