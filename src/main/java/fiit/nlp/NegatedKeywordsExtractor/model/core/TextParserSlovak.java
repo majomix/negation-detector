@@ -57,9 +57,9 @@ public class TextParserSlovak implements ITextParser {
 			for(AbstractAnnotatedWord wordEntry : sentence.getWords()) {
 				String word = wordEntry.lemma.toLowerCase();
 				
-				if(word.equals("bez") || word.equals("okrem") || word.equals("mimo") || word.equals("namiesto")) {
+				if(word.equalsIgnoreCase("bez") || word.equalsIgnoreCase("okrem") || word.equalsIgnoreCase("mimo") || word.equalsIgnoreCase("namiesto")) {
 					wordEntry.negator = "gen";
-				} else if(word.equals("nie")) {
+				} else if(word.equalsIgnoreCase("nie")) {
 					wordEntry.negator = "nie";
 				} else {
 					wordEntry.negator = strategy.detect(wordEntry);
@@ -73,21 +73,21 @@ public class TextParserSlovak implements ITextParser {
 		detectNegators(sentences, new NegativePrefixSlovakParadigmsStrategy());
 	}
 
-	@Override
-	public void detectNegationScope(List<SentenceNKE> sentences) {
-		Map<String, IScopeStrategy> strategyMap = new HashMap<String, IScopeStrategy>();
-		strategyMap.put("gen", new ScopeStrategySlovakGen());
-		strategyMap.put("pre", new ScopeStrategySlovakPred());
-		strategyMap.put("atr", new ScopeStrategySlovakAttr());
-		strategyMap.put("nie", new ScopeStrategySlovakNot());
-		
-		for(SentenceNKE sentence : sentences) {
-			for(AbstractAnnotatedWord word : sentence.getWords()) {
-				IScopeStrategy strategy = strategyMap.get(word.negator);
-				if(strategy != null) {
-					strategy.detectScope(sentence, word);
-				}
+@Override
+public void detectNegationScope(List<SentenceNKE> sentences) {
+	Map<String, IScopeStrategy> strategyMap = new HashMap<String, IScopeStrategy>();
+	strategyMap.put("gen", new ScopeStrategySlovakGen());
+	strategyMap.put("pre", new ScopeStrategySlovakPred());
+	strategyMap.put("atr", new ScopeStrategySlovakAttr());
+	strategyMap.put("nie", new ScopeStrategySlovakNot());
+	
+	for(SentenceNKE sentence : sentences) {
+		for(AbstractAnnotatedWord word : sentence.getWords()) {
+			IScopeStrategy strategy = strategyMap.get(word.negator);
+			if(strategy != null) {
+				strategy.detectScope(sentence, word);
 			}
 		}
 	}
+}
 }

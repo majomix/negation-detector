@@ -15,12 +15,13 @@ public abstract class AbstractCorpusReader {
 	protected LanguageDetector detector;
 
 	public abstract List<Document> createCorpus();
+	public abstract Document createDocument(String file);
 	
 	public List<String> getUnparsable() {
 		return unparsable;
 	}
 	
-	protected AbstractCorpusReader(File startPath) {
+	public AbstractCorpusReader(File startPath) {
 		this.startPath = startPath;
 		this.unparsable = new ArrayList<String>();
 		

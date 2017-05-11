@@ -25,11 +25,6 @@ public class ScopeStrategySlovakNot implements IScopeStrategy {
 					tag = true;
 				}
 			}
-			
-			// fallback - tag next word
-			if(!tag) {
-				
-			}
 		}
 	}
 

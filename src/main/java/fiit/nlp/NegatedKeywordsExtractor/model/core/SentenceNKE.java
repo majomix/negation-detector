@@ -1,11 +1,8 @@
 package fiit.nlp.NegatedKeywordsExtractor.model.core;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.abego.treelayout.util.DefaultTreeForTreeLayout;
@@ -42,7 +39,7 @@ public class SentenceNKE {
 				return o1.order - o2.order;
 			}
 		});
-		IDependencyTreeLayoutBuilder builder = new DependencyTreeLayoutBuilderNaive();
+		IDependencyTreeLayoutCreator builder = new DependencyTreeLayoutCreator();
 		tree = builder.buildTree(words);
 	}
 	
@@ -68,5 +65,47 @@ public class SentenceNKE {
 	
 	public String toString() {
 		return conllText;
+	}
+	
+	public String printLatexTree() {
+		StringBuilder stringBuilder = new StringBuilder();
+		List<AbstractAnnotatedWord> roots = words.get(0);
+			
+		stringBuilder.append("\\begin{figure}\n");
+		stringBuilder.append("  \\begin{forest}\n");
+		stringBuilder.append("    for tree={\n");
+		stringBuilder.append("      parent anchor=south,\n");
+		stringBuilder.append("      child anchor=north,\n");
+		stringBuilder.append("      tier/.wrap pgfmath arg={tier#1}{level()},\n");
+		stringBuilder.append("      font=\\sffamily,\n");
+		stringBuilder.append("    }\n");
+
+		for(AbstractAnnotatedWord root : roots) {
+			buildRecursively(root, words, stringBuilder);
+		}
+		
+		stringBuilder.append("  \\end{forest}\n");
+		stringBuilder.append("\\end{figure}\n");
+		stringBuilder.append("\\clearpage\n");
+		
+		return stringBuilder.toString();
+	}
+		
+	private void buildRecursively(AbstractAnnotatedWord node, Map<Integer, List<AbstractAnnotatedWord>> words, StringBuilder stringBuilder) {
+		List<AbstractAnnotatedWord> nodes = words.get(node.order);
+		
+		String outWord = node.word.equals(",") ? "/" : node.word;
+		
+		stringBuilder.append("[" + outWord + ", name=node" + node.order);
+		
+		if(nodes != null && !nodes.isEmpty()) {
+			stringBuilder.append("\n");
+			for(AbstractAnnotatedWord word : nodes) {
+				buildRecursively(word, words, stringBuilder);
+			}
+			stringBuilder.append("]\n");
+		} else {
+			stringBuilder.append("]\n");
+		}
 	}
 }

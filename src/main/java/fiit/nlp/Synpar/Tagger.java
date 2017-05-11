@@ -4,6 +4,7 @@ import org.annolab.tt4j.TokenHandler;
 import org.annolab.tt4j.TreeTaggerException;
 import org.annolab.tt4j.TreeTaggerWrapper;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.NegationDetectorConfiguration;
 import opennlp.tools.tokenize.SimpleTokenizer;
 
 import static java.util.Arrays.asList;
@@ -16,7 +17,7 @@ public class Tagger {
 	public Tagger() throws IOException {
 		tokenizer = new SimpleTokenizer();
 
-		final String taggerModel = "F:/Java/lib/slovak2-utf8.par";
+		final String taggerModel = NegationDetectorConfiguration.getProperty("taggerModel");
 		
 		tagger = new TreeTaggerWrapper<String>();	
 

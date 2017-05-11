@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.NegationDetectorConfiguration;
 import opennlp.tools.sentdetect.*;
 
 public class Segmentator {
@@ -13,7 +14,7 @@ public class Segmentator {
 	SentenceDetectorME sentenceDetector;
 	
 	private Segmentator() throws FileNotFoundException {
-		InputStream modelIn = new FileInputStream("F:/Java/lib/en-sent.bin");
+		InputStream modelIn = new FileInputStream(NegationDetectorConfiguration.getProperty("segmentator"));
 		
 		try {
 		  SentenceModel model = new SentenceModel(modelIn);

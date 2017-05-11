@@ -3,7 +3,7 @@ package fiit.nlp.NegatedKeywordsExtractor.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class AbstractNotifyBase {
+public abstract class AbstractNotifyBase {
 
     protected PropertyChangeSupport propertyChangeSupport;
 

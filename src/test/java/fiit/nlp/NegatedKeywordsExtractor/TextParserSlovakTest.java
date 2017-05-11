@@ -30,6 +30,7 @@ public class TextParserSlovakTest {
 		parser.detectNegators(sentences);
 		
 		// assert
+		sentences.get(0).getWords()
 		assertTrue( true );
 	}
 }

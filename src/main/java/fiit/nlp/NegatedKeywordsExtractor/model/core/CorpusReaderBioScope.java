@@ -3,9 +3,10 @@ package fiit.nlp.NegatedKeywordsExtractor.model.core;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.tika.exception.TikaException;
 import org.apache.tika.language.detect.LanguageResult;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -14,7 +15,9 @@ import org.jdom.input.SAXBuilder;
 
 public class CorpusReaderBioScope extends AbstractCorpusReader {
 
-	protected CorpusReaderBioScope(File startPath) {
+	private HashMap<String, Integer> negatorsHistogram = new HashMap<String, Integer>();
+	
+	public CorpusReaderBioScope(File startPath) {
 		super(startPath);
 	}
 
@@ -31,6 +34,7 @@ public class CorpusReaderBioScope extends AbstractCorpusReader {
 		for(String filename : fileList) {
 			sentences = new ArrayList<SentenceNKE>();
 			org.jdom.Document documentXML;
+			StringBuilder stringBuilder = new StringBuilder();
 			try {
 				documentXML = (org.jdom.Document) builder.build(new File(filename));
 				
@@ -53,19 +57,30 @@ public class CorpusReaderBioScope extends AbstractCorpusReader {
 								SentenceNKE parsedSentence = parsedSentences.get(0);
 								
 								markExpectedNegations(parsedSentence, scope);
+								
+								sentences.add(parsedSentence);
+								stringBuilder.append(scope.getText());
 							}
 						}
 					}
-
-					
-//					stringBuilder.append(sentenceText);
 				}
 			} catch (JDOMException | IOException e) {
 				e.printStackTrace();
 			}
+			
+			String rawText = stringBuilder.toString();
+			LanguageResult result = detector.detect(rawText);
+			
+			Document document = new Document(rawText, sentences, result.getLanguage());
+			corpus.add(document);
+		}
+
+		
+		for(Map.Entry<String,Integer> set : negatorsHistogram.entrySet()) {
+			System.out.println("FINAL!!! " + set.getKey() + ": " + set.getValue());
 		}
 		
-		return null;
+		return corpus;
 	}
 	
 	private void markExpectedNegations(SentenceNKE parsedSentence, ICompositeScope scope) {
@@ -90,35 +105,44 @@ public class CorpusReaderBioScope extends AbstractCorpusReader {
 					} else {
 						consecutive = 0;
 					}
-				}
+				} 
 			}
 			
 			String negatorValue = "";
 			for(ICompositeScope possibleNegator : negatedContent.get(i).getContent()) {
-				if(possibleNegator instanceof CueScope) {
-					negatorValue = possibleNegator.getText();
+				if(possibleNegator instanceof CueScope && ((CueScope)possibleNegator).getType().equals("negation")) {
+					negatorValue += possibleNegator.getText();
+					
+					Integer count = negatorsHistogram.get(negatorValue);
+					int newCount = count == null ? 1 : count + 1;
+					negatorsHistogram.put(negatorValue, newCount);
 				}
 			}
-			
-			AbstractAnnotatedWord negator = null;
-			for(int j = minStart; j <= maxEnd; j++) {
-				AbstractAnnotatedWord word = parsedSentence.getWord(j);
-				
-				if(word.word.equals(negatorValue)) {
-					negator = word;
-					negator.expectedNegator = "yes";
-				}
-			}
-			
-			if(negator != null) {
+
+			if(minStart != -1 && maxEnd != -1) {
+				List<AbstractAnnotatedWord> negators = new ArrayList<AbstractAnnotatedWord>();
 				for(int j = minStart; j <= maxEnd; j++) {
 					AbstractAnnotatedWord word = parsedSentence.getWord(j);
 					
-					if(word != negator) {
-						word.expectedNegationTargetOfNode.add(negator.order);
+					if(negatorValue.contains(word.word)) {
+						negators.add(word);
+						word.expectedNegator = "yes";
+					}
+				}
+				
+				if(negators.size() > 0) {
+					for(int j = minStart; j <= maxEnd; j++) {
+						AbstractAnnotatedWord word = parsedSentence.getWord(j);
+						
+						if(!negators.contains(word)) {
+							for(AbstractAnnotatedWord negator : negators) {
+								word.expectedNegationTargetOfNode.add(negator.order);
+							}
+						}
 					}
 				}
 			}
+			
 		}
 	}
 
@@ -272,6 +296,12 @@ public class CorpusReaderBioScope extends AbstractCorpusReader {
 			list.add(this);
 			return list;
 		}
+	}
+
+	@Override
+	public Document createDocument(String file) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

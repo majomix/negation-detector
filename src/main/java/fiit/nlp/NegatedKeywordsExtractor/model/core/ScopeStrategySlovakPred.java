@@ -29,9 +29,9 @@ public class ScopeStrategySlovakPred implements IScopeStrategy {
 		for(AbstractAnnotatedWord node : tree.getChildren(word)) {
 			// dont tag specific conjunctions's subtrees
 			boolean tag = true;
-			String[] ignoreConjunctions = new String[] { "ale", "takže", "pretože", "keďže", "keď", "aby", "pokiaľ", "nakoľko" };
+			String[] ignoreConjunctions = new String[] { "ale", "takže", "pretože", "nech", "keby", "keďže", "keď", "aby", "pokiaľ", "nakoľko", "tak" };
 			for(String conjunction : ignoreConjunctions) {
-				if(word.word.equalsIgnoreCase(conjunction)) {
+				if(word.word.equals(conjunction)) {
 					tag = false;
 					break;
 				}

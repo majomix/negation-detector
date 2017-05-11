@@ -57,11 +57,11 @@ public class EvaluatorCorpusNegationScope {
 				}
 				
 				for(AbstractAnnotatedWord negator : negators) {
-					String type = negator.negator;
-					ScoreCalculator score = scores.get(negator.negator);
+					String type = negator.expectedNegator;
+					ScoreCalculator score = scores.get(negator.expectedNegator);
 					if(score == null) {
-						score = scores.get(negator.expectedNegator);
-						type = negator.expectedNegator;
+						score = scores.get(negator.negator);
+						type = negator.negator;
 					}
 					
 					if(score != null) {

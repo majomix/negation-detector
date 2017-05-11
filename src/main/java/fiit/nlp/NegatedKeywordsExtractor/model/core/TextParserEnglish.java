@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.abego.treelayout.util.DefaultTreeForTreeLayout;
+
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.CoNLLOutputter;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -55,19 +57,77 @@ public class TextParserEnglish implements ITextParser {
 
 	@Override
 	public void detectNegators(List<SentenceNKE> sentences, INegativePrefixStrategy strategy) {
-		// TODO Auto-generated method stub
+		if(strategy == null) {
+			detectNegators(sentences);
+			return;
+		}
 		
+		HashMap<String, String> genitiveMultiword = new HashMap<String,String>();
+		genitiveMultiword.put("without", null);
+		genitiveMultiword.put("than", "rather");
+		genitiveMultiword.put("of", "instead");
+		genitiveMultiword.put("from", "apart");
+		
+		for(SentenceNKE sentence : sentences) {
+			for(AbstractAnnotatedWord wordEntry : sentence.getWords()) {
+				if(genitiveMultiword.containsKey(wordEntry.word.toLowerCase())) {
+					inspectGenitiveNegatorCandidates(wordEntry, genitiveMultiword.get(wordEntry.word.toLowerCase()), sentence.getTree());
+				} else if(wordEntry.word.equalsIgnoreCase("not")) {
+					wordEntry.negator = "not";
+				} else if(wordEntry.word.equalsIgnoreCase("no") || wordEntry.word.equalsIgnoreCase("none")) {
+					wordEntry.negator = "non";
+				} else if(wordEntry.word.equalsIgnoreCase("neither") || wordEntry.word.equalsIgnoreCase("nor")) {
+					wordEntry.negator = "cpd";
+				} else if (wordEntry.lemma.equalsIgnoreCase("lack")) {
+					wordEntry.negator = "pre";
+				} else if(wordEntry.word.endsWith("less")) {
+					wordEntry.negator = "att";
+				} else if(wordEntry.word.endsWith("lessly")) {
+					wordEntry.negator = "adv";
+				} else if(wordEntry.word.endsWith("lessness")) {
+					wordEntry.negator = "sbs";
+				} else {
+					wordEntry.negator = strategy.detect(wordEntry);
+				}
+			}
+		}
+	}
+	
+	private void inspectGenitiveNegatorCandidates(AbstractAnnotatedWord negator, String compoundNegator, DefaultTreeForTreeLayout<AbstractAnnotatedWord> tree) {
+		// single word
+		if(compoundNegator == null) {
+			negator.negator = "gen";
+		}
+		// possible multiword negator
+		else {
+			if(compoundNegator.equalsIgnoreCase(tree.getParent(negator).word)) {
+				negator.negator = "gnc";
+				tree.getParent(negator).negator = "gen";
+			}
+		}
 	}
 
 	@Override
 	public void detectNegators(List<SentenceNKE> sentences) {
-		// TODO Auto-generated method stub
-		
+		detectNegators(sentences, new NegativePrefixEnglishStrategy());
 	}
 
 	@Override
 	public void detectNegationScope(List<SentenceNKE> sentences) {
-		// TODO Auto-generated method stub
+		Map<String, IScopeStrategy> strategyMap = new HashMap<String, IScopeStrategy>();
+		strategyMap.put("gen", new ScopeStrategyEnglishRightSibling());
+		strategyMap.put("pre", new ScopeStrategyEnglishPre());
+		strategyMap.put("not", new ScopeStrategyEnglishRightSibling());
+		strategyMap.put("non", new ScopeStrategyEnglishRightSibling());
+		strategyMap.put("cpd", new ScopeStrategyEnglishRightSibling());
 		
+		for(SentenceNKE sentence : sentences) {
+			for(AbstractAnnotatedWord word : sentence.getWords()) {
+				IScopeStrategy strategy = strategyMap.get(word.negator);
+				if(strategy != null) {
+					strategy.detectScope(sentence, word);
+				}
+			}
+		}
 	}
 }

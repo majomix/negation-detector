@@ -6,17 +6,12 @@ public class Document {
 	private String rawText;
 	private String filename;
 	private String language;
-	
 	private List<SentenceNKE> sentences;
-	private Map<String, Integer> histogram;
 	
 	private ITextParser parser;
 	private INegativePrefixStrategy strategy;
 	
 	private Document(String rawText, String language) {
-		histogram = new HashMap<String, Integer>();
-		strategy = new NegativePrefixSlovakParadigmsStrategy();
-		
 		this.setLanguage(language);
 		this.setRawText(rawText);
 		strategy = null;
@@ -33,16 +28,10 @@ public class Document {
 		this(rawText, language);
 		this.filename = filename;
 		initializeParsing();
-//		Integer count = histogram.get(word.getLemma());
-//		histogram.put(word.getLemma(), count == null ? 1 : count + 1);
 	}
 	
 	public List<SentenceNKE> getSentences() {
 		return sentences;
-	}
-	
-	public Map<String, Integer> getHistogram() {
-		return histogram;
 	}
 	
 	public String getFilename() {
@@ -58,6 +47,7 @@ public class Document {
 			parser = new TextParserEnglish();
 		} else {
 			parser = new TextParserSlovak();
+			strategy = new NegativePrefixSlovakParadigmsStrategy();
 		}
 		
 		this.language = language;

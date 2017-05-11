@@ -8,20 +8,17 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.language.detect.LanguageDetector;
 import org.apache.tika.language.detect.LanguageResult;
 
 public class CorpusReaderXML extends AbstractCorpusReader {
 
-	protected CorpusReaderXML(File startPath) {
+	public CorpusReaderXML(File startPath) {
 		super(startPath);
 	}
 
 	@Override
 	public List<Document> createCorpus() {
 		List<Document> corpus = new ArrayList<Document>();
-		StringBuilder stringBuilder = new StringBuilder();
 		
 		searchInDirectory(startPath);
 		
@@ -32,6 +29,7 @@ public class CorpusReaderXML extends AbstractCorpusReader {
 		for(String filename : fileList) {
 			sentences = new ArrayList<SentenceNKE>();
 			org.jdom.Document documentXML;
+			StringBuilder stringBuilder = new StringBuilder();
 			try {
 				documentXML = (org.jdom.Document) builder.build(new File(filename));
 				
@@ -86,6 +84,12 @@ public class CorpusReaderXML extends AbstractCorpusReader {
 		}
 
 		return corpus;
+	}
+
+	@Override
+	public Document createDocument(String file) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

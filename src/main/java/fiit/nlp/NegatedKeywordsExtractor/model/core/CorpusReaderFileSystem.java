@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
-import org.apache.tika.langdetect.OptimaizeLangDetector;
-import org.apache.tika.language.detect.LanguageDetector;
 import org.apache.tika.language.detect.LanguageResult;
 
 public class CorpusReaderFileSystem extends AbstractCorpusReader {

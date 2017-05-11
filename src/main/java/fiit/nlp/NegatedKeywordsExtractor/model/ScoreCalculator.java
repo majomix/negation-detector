@@ -84,8 +84,6 @@ public class ScoreCalculator {
 		sb.append("Precision: " + getPrecision() + "\n");
 		sb.append("Recall: " + getRecall() + "\n");
 		sb.append("F1: " + getFMeasure() + "\n");
-		sb.append("Precision: " + getPrecision() + "\n");
-		sb.append("Recall: " + getRecall() + "\n");
 		sb.append("Specificity: " + getSpecificity() + "\n");
 		sb.append("Accuracy: " + getAccuracy() + "\n");
 		

@@ -1,6 +1,7 @@
 package fiit.nlp.Synpar;
 import org.annolab.tt4j.*;
 
+import fiit.nlp.NegatedKeywordsExtractor.model.core.NegationDetectorConfiguration;
 import fiit.nlp.Synpar.Diacritics;
 import fiit.nlp.Synpar.Segmentator;
 import fiit.nlp.Synpar.Sentence;
@@ -19,7 +20,7 @@ public class SentenceParser {
 	Spellchecker speller;
 	
 	public SentenceParser() throws IOException {
-		predParser = new Parser("F:/Java/lib/model-pred");
+		predParser = new Parser(NegationDetectorConfiguration.getProperty("slovakModel"));
 		
 		tagger = new Tagger();
 		speller = new Spellchecker();

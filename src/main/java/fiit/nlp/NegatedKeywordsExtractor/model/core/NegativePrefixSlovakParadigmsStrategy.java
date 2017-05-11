@@ -14,7 +14,7 @@ public class NegativePrefixSlovakParadigmsStrategy implements INegativePrefixStr
 		
 		String[] prefixes = getPrefixes();
 		
-		Set<ParadigmEntry> set = WordDictionaryLoaderParadigms.getInstance();
+		Set<WordEntryParadigm> set = WordDictionaryLoaderParadigms.getInstance();
 		
 		String word = wordEntry.lemma.toLowerCase();
 		
@@ -28,20 +28,28 @@ public class NegativePrefixSlovakParadigmsStrategy implements INegativePrefixStr
 				}
 				
 				// paradigms list feminimum and neutrum lemmas as masculinum
-				if(lemma.endsWith("á") || lemma.endsWith("é")) {
+				if(lemma.endsWith("á") || lemma.endsWith("é") || lemma.endsWith("ú") || lemma.endsWith("í")) {
 					lemma = lemma.substring(0, lemma.length() - 1) + "ý";
 				}
-
-				ArrayList<ParadigmEntry> entries = new ArrayList<ParadigmEntry>();
-				entries.add(new ParadigmEntry(result[1], wordEntry.partOfSpeechTag));
+				
+				ArrayList<WordEntryParadigm> entries = new ArrayList<WordEntryParadigm>();
+				entries.add(new WordEntryParadigm(result[1], wordEntry.partOfSpeechTag));
 				
 				if(lemma.endsWith("ý")) {
-					entries.add(new ParadigmEntry(result[1], "A"));
-					entries.add(new ParadigmEntry(result[1], "G"));
-					wordEntry.partOfSpeechFeatures.put("case", "1");
+					entries.add(new WordEntryParadigm(result[1], "A"));
+					entries.add(new WordEntryParadigm(result[1], "G"));
+					
+					// false part of speech
+					if(wordEntry.hasPartOfSpeech("V")) {
+						wordEntry.partOfSpeechFeatures.put("case", "1");
+					}
+				}
+
+				if(lemma.equalsIgnoreCase("nejsť") && prefix.equals("ne")) {
+					entries.add(new WordEntryParadigm("ísť", "V"));
 				}
 				
-				for(ParadigmEntry checkedEntry : entries) {
+				for(WordEntryParadigm checkedEntry : entries) {
 					if(set.contains(checkedEntry)) {
 						switch(checkedEntry.pos) {
 						case "G":

@@ -29,7 +29,7 @@ public abstract class AbstractAnnotatedWord {
 	}
 
 	public String toString() {
-		return lemma;
+		return word;
 	}
 	
 	public String getPartOfSpeechTag() {

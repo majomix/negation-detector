@@ -1,11 +1,11 @@
 package fiit.nlp.NegatedKeywordsExtractor.model.core;
 
-public class ParadigmEntry {
+public class WordEntryParadigm {
 
 	public String lemma;
 	public String pos;
 	
-	public ParadigmEntry(String lemma, String pos) {
+	public WordEntryParadigm(String lemma, String pos) {
 		this.lemma = lemma;
 		this.pos = pos;
 	}
@@ -27,7 +27,7 @@ public class ParadigmEntry {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ParadigmEntry other = (ParadigmEntry) obj;
+		WordEntryParadigm other = (WordEntryParadigm) obj;
 		if (lemma == null) {
 			if (other.lemma != null)
 				return false;

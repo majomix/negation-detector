@@ -11,16 +11,16 @@ import java.util.Set;
 import fiit.nlp.NegatedKeywordsExtractor.model.core.AbstractAnnotatedWord;
 import fiit.nlp.NegatedKeywordsExtractor.model.core.AnnotatedWordSlovak;
 import fiit.nlp.NegatedKeywordsExtractor.model.core.NegativePrefixSlovakParadigmsStrategy;
-import fiit.nlp.NegatedKeywordsExtractor.model.core.ParadigmEntry;
+import fiit.nlp.NegatedKeywordsExtractor.model.core.WordEntryParadigm;
 import fiit.nlp.NegatedKeywordsExtractor.model.core.WordDictionaryLoaderParadigms;
 
 public class EvaluatorNegativePrefixSlovakParadigms {
 	public void PrepareManualTest() {
-    	Set<ParadigmEntry> set = WordDictionaryLoaderParadigms.getInstance();
+    	Set<WordEntryParadigm> set = WordDictionaryLoaderParadigms.getInstance();
     	ArrayList<AnnotatedWordSlovak> words = new ArrayList<AnnotatedWordSlovak>();
     	NegativePrefixSlovakParadigmsStrategy strategy = new NegativePrefixSlovakParadigmsStrategy();
     	
-    	for(ParadigmEntry entry : set) {
+    	for(WordEntryParadigm entry : set) {
     		AnnotatedWordSlovak word = new AnnotatedWordSlovak(entry.lemma, entry.pos);
     		word.negator = strategy.detect(word);
     		words.add(word);
