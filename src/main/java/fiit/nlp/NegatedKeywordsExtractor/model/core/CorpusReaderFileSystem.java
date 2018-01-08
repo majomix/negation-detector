@@ -29,7 +29,6 @@ public class CorpusReaderFileSystem extends AbstractCorpusReader {
 			try {
 				content = extractor.parseToString(file);
 				LanguageResult result = detector.detect(content);
-				
 				Document document = new Document(content, result.getLanguage(), filename);
 				corpus.add(document);
 			} catch (IOException|TikaException e) {
